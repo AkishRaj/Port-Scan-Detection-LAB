@@ -81,18 +81,7 @@ Logs will now be written to:
 sudo tail -f /var/log/ufw.log
 ```
 
----
 
-### 📊 Configure Splunk
-
-1. Install the **Splunk Universal Forwarder** on the Ubuntu target machine.
-2. Configure it to monitor `/var/log/ufw.log`.
-3. Forward logs to your Splunk indexer.
-4. Verify data is arriving in Splunk by searching:
-
-```spl
-index=* "UFW"
-```
 
 ---
 
@@ -138,6 +127,8 @@ sudo nmap -p- 192.168.1.20
 
 Create a new Splunk dashboard with the following three panels.
 
+<img width="1919" height="889" alt="Screenshot 2026-02-22 185745" src="https://github.com/user-attachments/assets/1afe0429-9d98-4d3f-9dd1-6eda7052d1ae" />
+
 ---
 
 ### Panel 1 — 🔎 Port Scan Detection
@@ -149,6 +140,7 @@ index=*
 | stats dc(DPT) as unique_ports by SRC
 | where unique_ports > 10
 ```
+<img width="942" height="193" alt="image" src="https://github.com/user-attachments/assets/2f413cd0-0173-49c9-94e0-eec85062531b" />
 
 **What it detects:** Any host scanning more than 10 distinct ports within the indexed time range.
 
@@ -165,6 +157,7 @@ index=* "UFW"
 | stats count by src_ip, _time
 | sort - count
 ```
+<img width="1874" height="337" alt="image" src="https://github.com/user-attachments/assets/f3929c89-02be-42b9-90aa-aef4212671b4" />
 
 **What it detects:** Bursts of blocked connection attempts grouped by minute, sorted by frequency.
 
@@ -180,6 +173,7 @@ index=* "SYN"
 | stats count by src_ip
 | sort - count
 ```
+<img width="933" height="333" alt="image" src="https://github.com/user-attachments/assets/5bde1f73-7d3e-48a2-a61b-a0b7c91e2715" />
 
 **What it detects:** Hosts sending SYN-only packets without completing the TCP handshake — characteristic of SYN/stealth scans.
 
@@ -216,6 +210,20 @@ After completing this lab, you will be able to:
 This lab is for **educational purposes only**. Only run port scans against machines you own or have explicit written permission to test. Unauthorized scanning is illegal.
 
 ---
+
+
+## 👤 Author
+
+**Akish Raj.A**
+- LinkedIn: https://www.linkedin.com/in/akish-raj/
+
+
+---
+
+## 🏷 Tags
+
+`Cybersecurity` `SOC` `Splunk` `SIEM` `Nmap` `portscan` 
+`LogAnalysis` `KaliLinux` `EthicalHacking` `BlueTeam`
 
 ## 📜 License
 
